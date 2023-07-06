@@ -24,7 +24,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const arrivalAirport = flight.arrivalAirport.code;
     const flightOperatorName = flight.flightList[0].flightOperator.name;
     const originalPrice = flight.fareOptionList[0].originalPrice;
-    const cells = [flightNo, departureAirport, arrivalAirport, flightOperatorName, originalPrice];
+    const way = flight.flightList.length > 1 ? "direkt" : "aktarmali"; 
+    const cells = [flightNo, departureAirport, arrivalAirport, way, flightOperatorName, originalPrice];
     
     cells.forEach(cellText => {
       const cell = document.createElement('td');
