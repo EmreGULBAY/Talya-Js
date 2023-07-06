@@ -2,7 +2,7 @@ var data = localStorage.getItem('data')
 
 data = JSON.parse(data)
 //data.response.itineraryList[0].flightOptionList.forEach(element => {});
-
+let isAscending = true;
 var flights = data.response.itineraryList[0].flightOptionList;
 populateTable();
 function populateTable() {
@@ -36,30 +36,24 @@ function populateTable() {
     table.appendChild(row);
   });
 }
-function sortFlightsByPriceLow() {
-  flights.sort((a, b) => {
+function sortFlightsByPrice() {
+  flights.sort((a, b) => { 
     const priceA = a.fareOptionList[0].originalPrice;
     const priceB = b.fareOptionList[0].originalPrice;
-    return priceA - priceB;
+    if (isAscending) {
+      return priceA - priceB; 
+    } else {
+      return priceB - priceA; 
+    }
   });
 
   populateTable();
 }
-const sortLowButton = document.getElementById('sortButtonLow');
-sortLowButton.addEventListener('click', sortFlightsByPriceLow);
-
-function sortFlightsByPriceHigh() {
-  flights.sort((a, b) => {
-    const priceA = a.fareOptionList[0].originalPrice;
-    const priceB = b.fareOptionList[0].originalPrice;
-    return priceB - priceA;
-  });
-
-  populateTable();
-}
-const sortLargeButton = document.getElementById('sortButtonLarge');
-sortLargeButton.addEventListener('click', sortFlightsByPriceHigh);
-
+const sortButton = document.getElementById('sortButton');
+sortButton.addEventListener('click', () => {
+  isAscending = !isAscending; 
+  sortFlightsByPrice();
+});
 populateTable();
 
   
